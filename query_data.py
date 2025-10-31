@@ -24,7 +24,9 @@ def main():
     parser.add_argument("query_text", type=str, help="The query text.")
     args = parser.parse_args()
     query_text = args.query_text
-    query_rag(query_text)
+    result = query_rag(query_text)
+    print(f"\nAnswer: {result['answer']}")
+    print(f"Sources: {result['sources']}")
 
 
 def query_rag(query_text: str):
@@ -49,7 +51,7 @@ def query_rag(query_text: str):
     sources = [doc.metadata.get("id", None) for doc, _score in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"
     print(formatted_response)
-    return response_text
+    return {'answer': response_text, 'sources': sources}
 
 
 if __name__ == "__main__":

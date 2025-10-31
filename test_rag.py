@@ -80,7 +80,8 @@ def format_eval_table(question: str, response_text: str, evald: dict):
 def assert_with_grade(
     question: str, expected_keywords: list[str], min_score: float
 ):
-    response_text = query_rag(question)
+    result = query_rag(question)
+    response_text = result['answer']
     evald = grade_response(response_text, expected_keywords)
     table = format_eval_table(question, response_text, evald)
     print(table)

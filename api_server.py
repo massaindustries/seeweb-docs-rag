@@ -15,8 +15,12 @@ def query():
         if not question:
             return jsonify({'error': 'No question provided'}), 400
         
-        response = query_rag(question)
-        return jsonify({'answer': response, 'status': 'success'})
+        result = query_rag(question)
+        return jsonify({
+            'answer': result['answer'],
+            'sources': result['sources'],
+            'status': 'success'
+        })
     
     except Exception as e:
         return jsonify({'error': str(e), 'status': 'error'}), 500
